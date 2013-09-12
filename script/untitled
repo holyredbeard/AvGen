@@ -1,0 +1,16 @@
+AvGen = {
+    
+    canvasTop: 50,
+    canvasLeft: 50,
+    unicorn: null,
+    eyes: 1,
+    paper: null,
+    theBody: {
+        bodies: [
+            'foo',
+            'foo2',
+            'foo3'
+        ],
+        bodyColor: '#DB6EDB',
+        currBodyNr: 1,
+        currBodyObj: AvGen.theBody.bodies[1]

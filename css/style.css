@@ -1,0 +1,146 @@
+body {
+	background-color: gray;
+	font-family: Georgia;
+	color: #444;
+}
+
+.button {
+	cursor: pointer;
+	padding: 2px;
+}
+
+#test {
+	background: red;
+	height: 4px;
+	border-radius: 3px;
+	width: 200px;
+}
+
+#container {
+	background: #fff;
+	position: absolute;
+	top: 100px;
+	left: 250px;
+	width: 47em;
+	height: 30em;
+	border-radius: 3px;
+}
+
+#avatarBox {
+	width: 300px;
+	height: 300px;
+	border-radius: 5px;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+#randomBox {
+	margin-left: 20px;
+	margin-top: 25px;
+}
+
+#randomBtn {
+	height: 20px;
+	width: 300px;
+	background: #ccc;
+	border-radius: 3px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-align: center;
+	cursor: pointer;
+	color: #555;
+}
+
+#randomBtn:hover {
+	background: #bbb;
+}
+
+#toolBox {
+	padding: 20px;
+	top: -345px;
+	left: 320px;
+	margin-left: 50px;
+	position: relative;
+	width: 20em;
+	height: 350px;
+	float: left;
+}
+
+#eyesImg {
+	z-index: 10000;
+	position: absolute;
+	top: 1px;
+	left: 1px;
+	border: 10px;
+}
+
+.bgBox, .fgBox {
+	width: 30px;
+	height: 30px;
+	border-radius: 3px;
+	float: left;
+	margin-right: 7px;
+	margin-top: 5px;
+	cursor: pointer;
+}
+
+/* Colors on boxes */
+.bgBox_blue { background: #00AEEF; }
+.bgBox_blue_hover { background: #009bd5; }
+
+.bgBox_pink { background: #DB6EDB; }
+.bgBox_pink_hover { background: #b864b8; }
+
+.bgBox_green { background: #49CE5B; }
+.bgBox_green_hover { background: #41b150; }
+
+.bgBox_turquoise { background: #49CBCE; }
+.bgBox_turquoise_hover { background: #42b5b8; }
+
+.bgBox_red { background: #CE4949; }
+.bgBox_red_hover { background: #b74040; }
+
+.bgBox_purple { background: #9D49CE; }
+.bgBox_purple_hover { background: #8d43b9; }
+
+.bgBox_orange { background: #E59225; }
+.bgBox_orange_hover { background: #d28521; }
+
+#toolBox {
+	margin-top: -10px;
+	padding: 5px;
+}
+
+.toolboxArea1 {
+	margin-bottom: 10px;
+	width: 300px;
+}
+
+.toolboxArea2 {
+	margin-top: 10px;
+	width: 300px;
+}
+
+#bodyColorArea1 {
+	float: left;
+}
+
+#bodyColorArea2 {
+	float: left;
+}
+
+.clear {
+	clear: both;
+}
+
+.button {
+	margin-top: 5px;
+	padding: 2px;
+	margin-right: 4px;
+	background: #ccc;
+	border-radius: 3px;
+}
+
+.button:hover {
+	background: #bbb;
+}
