@@ -3,6 +3,8 @@ var theColor = '#e59225';
 var AvGen = {
 
     paper: null,
+	bg: null,
+	backColor: '#00AEEF',
     theBody: {
         bodies: [
             [0,0,277.9,308.5,{
@@ -78,6 +80,7 @@ var AvGen = {
         this.toolBox();
         this.randomChar();
 		this.hover();
+		this.saveImage();
     },
 
     loadSVG: function() {
@@ -90,10 +93,10 @@ var AvGen = {
         this.paper = Raphael('avatarBox', 300, 300);
 
         // Add svg:s
-        this.addSVG(theBody, eyes, nose, mouth);
+        this.addSVG(theBody, eyes, nose, mouth, 1);
     },
 
-    addSVG: function(theBody, eyes, nose, mouth) {
+    addSVG: function(theBody, eyes, nose, mouth, start) {
         if (this.theBody.currObj !== null) {
             this.theBody.currObj.remove();
             this.eyes.currAObj.remove();
@@ -101,14 +104,17 @@ var AvGen = {
             this.nose.currObj.remove();
             this.mouth.currObj.remove();
         }
-		
-		console.log('hejd');
 
         this.theBody.currObj = AvGen.paper.add(theBody).toBack().transform('T20, 20');
         this.eyes.currAObj = this.paper.add(eyes).transform('s' + this.eyes.aSize + ',' + this.eyes.aSize + ', 0, 0, T' + this.eyes.ax + ', ' + this.eyes.ay);
         this.eyes.currBObj = this.paper.add(eyes).transform('s' + this.eyes.bSize + ',' + this.eyes.bSize + ', 0, 0, T' + this.eyes.bx + ',' + this.eyes.by);
         this.nose.currObj = this.paper.add(nose).transform('s0.6, 0.6, 0, 0, T' + this.nose.x + ',' + this.nose.y);
         this.mouth.currObj = this.paper.add(mouth).transform('s' + this.mouth.size + ',' + this.mouth.size + ', 0, 0, T' + this.mouth.x + ',' + this.mouth.y);
+		
+		if (start == 1) {
+			this.bg = this.paper.rect(1, 1, 299, 299, 5).attr({ fill: AvGen.backColor,'stroke':'none' });
+		}
+		this.bg.attr({ fill: AvGen.backColor,'stroke':'none' }).toBack();
 
         this.paper.canvas.className.baseVal = 'charBody';
 		AvGen.theBody.currObj.attr('fill', AvGen.theBody.bodyColor);
@@ -145,14 +151,8 @@ var AvGen = {
             moveUpMouthBtn = $('#moveUpMouthBtn');
 
         // Change color of the background
-        bgColorBtn.on('click', function() {
-            var thisColor = $(this),
-                id = thisColor.attr('id'),
-                bgColor = 'bgBox_' + id,
-                avatarBox = $('#avatarBox');
-
-            avatarBox.removeClass();
-            avatarBox.addClass(bgColor);
+        bgColorBtn.on('click', function() {
+			changeColor($(this), 'bg');
         });
 
 
@@ -160,18 +160,7 @@ var AvGen = {
         
         // Change color of body
         fgColorBtn.on('click', function() {
-			// Check if element contains of a hover class and if so remove it.
-			if(/_hover\b/.test($(this).attr('class'))) {
-				var lastClass = $(this).attr('class').split(' ').pop();
-				$(this).removeClass(lastClass);	
-			}
-			
-            var color = $(this).css('backgroundColor');
-                // path = $(charBody).find('path');
-            
-            color = hexc(color);
-            AvGen.theBody.currObj.attr('fill', color);
-            AvGen.theBody.bodyColor = color;
+			changeColor($(this), 'fg');
         });
 
         // Change to previous body
@@ -321,7 +310,35 @@ var AvGen = {
         moveUpMouthBtn.on('click', function() {
             moveMouthVertical(-1);
         });
+		
+		// Change the color of either the background or the body
+		function changeColor(elem, theType) {
 
+			// Check if element contains of a hover class and if so remove it.
+			if(/_hover\b/.test(elem.attr('class'))) {
+				var lastClass = elem.attr('class').split(' ').pop();
+				elem.removeClass(lastClass);	
+			}
+			
+            var color = elem.css('backgroundColor');
+            color = hexc(color);
+			
+			if (theType === 'bg') {
+				$('#avatarBox rect').attr('fill', color);
+				AvGen.backColor = color;
+			}
+			else {
+	            AvGen.theBody.currObj.attr('fill', color);
+	            AvGen.theBody.bodyColor = color;
+			}
+			
+            var body = AvGen.theBody.bodies[AvGen.theBody.currNr],
+                eyes = AvGen.eyes.eyes[AvGen.eyes.currNr],
+                nose = AvGen.nose.noses[AvGen.nose.currNr],
+                mouth = AvGen.mouth.mouths[AvGen.mouth.currNr];
+
+            AvGen.addSVG(body, eyes, nose, mouth);
+		}
 
         /* FUNCTIONS FOR ALL PARTS */
 
@@ -559,6 +576,41 @@ var AvGen = {
 		        $(this).removeClass(hoverClass);
 		    }
 		);
+	},
+	
+	saveImage: function() {
+		
+		$('#saveBtn').on('click', function() {
+			var svg = AvGen.paper.toSVG();
+			canvg(document.getElementById('myCanvas'), svg);
+			
+            var fileURL = document.getElementById('myCanvas').toDataURL("image/png");
+
+			SaveToDisk(fileURL, 'avatar');
+		});
+		
+		function SaveToDisk(fileURL, fileName) {
+		    // for non-IE
+		    if (!window.ActiveXObject) {
+		        var save = document.createElement('a');
+		        save.href = fileURL;
+		        save.target = '_blank';
+		        save.download = fileName || 'unknown';
+
+		        var event = document.createEvent('Event');
+		        event.initEvent('click', true, true);
+		        save.dispatchEvent(event);
+		        (window.URL || window.webkitURL).revokeObjectURL(save.href);
+		    }
+
+		    // for IE
+		    else if ( !! window.ActiveXObject && document.execCommand)     {
+		        var _window = window.open(fileURL, '_blank');
+		        _window.document.close();
+		        _window.document.execCommand('SaveAs', true, fileName || fileURL)
+		        _window.close();
+		    }
+		}
 	}
 };
 

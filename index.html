@@ -7,9 +7,13 @@
 </head>
 <body>
 	<div id="container">
-		<div id="avatarBox" class="bgBox_blue"></div>
+		<div id="avatarBox" class="bgBoxl_blue"></div>
+		<canvas id="myCanvas" style="display:none;"></canvas>
 		<div id="randomBox">
 			<div id="randomBtn">Random</div>
+			<div id="saveBtn">Save
+				<img class="saveBtn" src="img/arrows/saveBtn.png"/>
+			</div>
 		</div>
 		<div id="toolBox">
 			<div class="toolboxArea1">
@@ -72,8 +76,12 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="script/jquery-1.7.1.js"></script>
+	<script type="text/javascript" src="script/rgbcolor.js"></script> 
+	<script type="text/javascript" src="script/StackBlur.js"></script>
 	<script type="text/javascript" src="script/characterObjects.js"></script>
 	<script type="text/javascript" src="script/script.js"></script>
 	<script type="text/javascript" src="script/raphael-min.js"></script>
+	<script type="text/javascript" src="script/raphael.export.js"></script>
+	<script type="text/javascript" src="script/canvg.js"></script>	
 </body>
 </html>

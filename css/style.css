@@ -40,8 +40,25 @@ body {
 }
 
 #randomBtn {
-	height: 20px;
 	width: 300px;
+}
+
+#saveBtn {
+	width: 75px;
+	text-align: left !important;
+	padding-left: 10px;
+	position: relative;
+	margin-top: 10px;
+}
+
+.saveBtn {
+	position: absolute;
+	top: 3px;
+	right: 10px;
+}
+
+#randomBtn, #saveBtn {
+	height: 20px;
 	background: #ccc;
 	border-radius: 3px;
 	padding-top: 5px;
@@ -51,7 +68,7 @@ body {
 	color: #555;
 }
 
-#randomBtn:hover {
+#randomBtn:hover, #saveBtn:hover {
 	background: #bbb;
 }
 
